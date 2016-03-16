@@ -17,7 +17,6 @@ allprojects { proj ->
     proj.repositories {
         mavenLocal()
         jcenter()
-        mavenCentral()
         maven  { url "http://repo1.maven.org/maven2" }
         maven { url 'http://repo.adobe.com/nexus/content/groups/public/' }
     }

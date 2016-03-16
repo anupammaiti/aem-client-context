@@ -29,13 +29,12 @@ if (!MyApp.CustomProfile) {
 
         this.initialize = function() {
             this.data = cfg.data();
-
+            // If the cookie already has custom profile data the do not load the data.
             if (hasCookie(cfg.customProfileCookie)) {
                 CQ_Analytics.SessionStore.prototype.setProperties.call(this, JSON.parse(getCookieValue(cfg.customProfileCookie)));
             } else {
                 this.setProperties(loadCustomProfile());
             }
-
             this.initialized = true;
             this.fireEvent('initialize', this);
             this.fireEvent('update');
@@ -68,9 +67,9 @@ if (!MyApp.CustomProfile) {
 
     // Instantiated CustomProfile Class
     MyApp.CustomProfile = new CustomProfile();
-
+    //As soon as CCM has loaded the config, "configloaded" event is fired.
     CQ_Analytics.CCM.addListener("configloaded", function() {
-        //registers Profile Data to clickstreamcloud manager
+        //Registers the new customprofile store to the CCM
         CQ_Analytics.CCM.register(this);
     }, MyApp.CustomProfile);
 }
